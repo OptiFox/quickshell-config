@@ -52,4 +52,17 @@ RowLayout {
   PwObjectTracker {
     objects: [root.sink]
   }
+
+  MouseArea {
+    anchors.fill: parent
+    cursorShape: Qt.PointingHandCursor
+    onClicked: if (sink && sink.audio) sink.audio.muted = !sink.audio.muted
+
+    onWheel: (wheel) => {
+      if (!sink || !sink.audio) return
+      const delta = wheel.angleDelta.y > 0 ? 0.05 : -0.05
+
+      sink.audio.volume = Math.max(0, Math.min(1.5, sink.audio.volume + delta))
+    }
+  }
 }

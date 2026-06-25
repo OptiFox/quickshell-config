@@ -36,8 +36,12 @@ Scope {
           Layout.fillWidth: true
         }
 
+        SysTray {}
+
+        Separator {}
+
         RowLayout {
-          spacing: 12
+          spacing: 8
 
           Battery {}
           Volume {}

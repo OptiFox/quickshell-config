@@ -1,0 +1,9 @@
+.qmlls.ini
+*.qmlc
+
+.vscode/
+.idea/
+*.swp
+*~
+
+.env
