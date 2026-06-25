@@ -13,8 +13,7 @@ RowLayout {
     command: ["sh", "-c", "hyprctl activewindow -j | jq -r '.title // empty'"]
     stdout: SplitParser {
       onRead: data => {
-      if (data && data.trim())
-      {
+      if (data && data.trim()) {
         activeWindow = data.trim()
       }
     }
@@ -25,8 +24,7 @@ RowLayout {
 
   Connections {
     target: Hyprland
-    function onRawEvent(event)
-    {
+    function onRawEvent(event) {
       windowProc.running = true
     }
   }
@@ -42,6 +40,7 @@ RowLayout {
     }
 
     Layout.fillWidth: true
+    Layout.maximumWidth: 400
 
     elide: Text.ElideRight
     maximumLineCount: 1
