@@ -15,7 +15,6 @@ RowLayout {
 
   readonly property string icon: {
     if (!ready || muted) return String.fromCodePoint(0xF0581)
-    // if (muted) return "󰝟"
 
     if (vol === 0) return String.fromCodePoint(0xF0581)
     if (vol < 34) return String.fromCodePoint(0xF057F)
