@@ -17,11 +17,6 @@ RowLayout {
       Accessible.role: Accessible.Button
       Accessible.name: "Workspace " + modelData.id + (modelData.focused ? ", active" : "") + (modelData.urgent ? ", urgent" : "")
 
-      required property int index
-
-      property var ws: Hyprland.workspaces.values.find(w => w.id === index + 1)
-      property bool isActive: Hyprland.focusedWorkspace?.id === (index + 1)
-
       implicitWidth: modelData.focused ? label.implicitHeight * 3 : label.implicitWidth + 14
       implicitHeight: 22
       radius: 6
