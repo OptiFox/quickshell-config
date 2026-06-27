@@ -4,8 +4,11 @@ import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 
+import ".."
+
 RowLayout {
   property string activeWindow: "Window"
+  property var theme: DefaultTheme {}
 
   Process {
     id: windowProc
@@ -31,7 +34,7 @@ RowLayout {
 
   Text {
     text: activeWindow
-    color: '#cdd6f4'
+    color: theme.textPrimary
 
     font {
       family: "SF Pro Display"

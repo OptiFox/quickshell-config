@@ -2,12 +2,17 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 
+import ".."
+
 Scope {
   Variants {
+    id: root
     model: Quickshell.screens
 
+    property var theme: DefaultTheme {}
+
     PanelWindow {
-      color: '#1e1e2e'
+      color: root.theme.bgBase
 
       required property var modelData
       screen: modelData

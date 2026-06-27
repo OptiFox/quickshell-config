@@ -3,9 +3,13 @@ import Quickshell.Services.Pipewire
 import QtQuick
 import QtQuick.Layouts
 
+import ".."
+
 RowLayout {
   id: root
   spacing: 6
+
+  property var theme: DefaultTheme {}
 
   property var sink: Pipewire.defaultAudioSink
   
@@ -25,7 +29,7 @@ RowLayout {
 
   Text {
     text: root.icon
-    color: '#f9e2af'
+    color: theme.accentYellow
 
     font {
       family: "JetBrainsMono Nerd Font Propo"
@@ -40,7 +44,7 @@ RowLayout {
       return root.vol + "%"
     }
 
-    color: root.muted ? '#6c7086' : '#cdd6f4'
+    color: root.muted ? theme.textMuted : theme.textPrimary
 
     font {
       family: "SF Pro Display"

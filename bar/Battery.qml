@@ -3,9 +3,13 @@ import Quickshell.Services.UPower
 import QtQuick
 import QtQuick.Layouts
 
+import ".."
+
 RowLayout {
   id: root
   spacing: 6
+
+  property var theme: DefaultTheme {}
 
   property var battery: UPower.displayDevice
   property bool charging: battery.state === UPowerDeviceState.Charging
@@ -20,10 +24,10 @@ RowLayout {
 
   Text {
     text: root.icon
-    color: root.charging ? '#a6e3a1'
-                         : root.level <= 15 ? '#f38ba8'
-                         : root.level <= 30 ? '#fab387'
-                         : '#a6e3a1'
+    color: root.charging ? theme.accentGreen
+                         : root.level <= 15 ? theme.accentRed
+                         : root.level <= 30 ? theme.accentOrange
+                         : theme.accentGreen
 
     font {
       family: "JetBrainsMono Nerd Font Propo"
@@ -33,7 +37,7 @@ RowLayout {
 
   Text {
     text: root.level + "%"
-    color: '#cdd6f4'
+    color: theme.textPrimary
 
     font {
       family: "SF Pro Display"

@@ -1,9 +1,13 @@
 import QtQuick
 
+import ".."
+
 Text {
   text: Time.time
 
-  color: '#89b4fa'
+  property var theme: DefaultTheme {}
+
+  color: theme.accentPrimary
 
   font {
     family: "SF Mono"

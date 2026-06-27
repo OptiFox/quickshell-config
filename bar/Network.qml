@@ -3,9 +3,13 @@ import Quickshell.Networking
 import QtQuick
 import QtQuick.Layouts
 
+import ".."
+
 RowLayout {
   id: root
   spacing: 6
+
+  property var theme: DefaultTheme {}
 
   property var wifiDevice: Networking.devices.values.find(d => d.type === DeviceType.Wifi)
   property var active: wifiDevice ? wifiDevice.networks.values.find(n => n.connected) : null
@@ -26,7 +30,7 @@ RowLayout {
 
   Text {
     text: root.icon
-    color: Networking.wifiEnabled ? '#cba6f7' : '#6c7086'
+    color: Networking.wifiEnabled ? theme.accentPurple : theme.textMuted
 
     font {
       family: "JetBrainsMono Nerd Font Propo"
@@ -42,7 +46,7 @@ RowLayout {
       return root.active.name
     }
 
-    color: '#cdd6f4'
+    color: theme.textPrimary
 
     font {
       family: "SF Pro Display"

@@ -4,11 +4,16 @@ import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
 
+import ".."
+
 Rectangle {
   implicitHeight: 30
   implicitWidth: trayIcons.implicitWidth + 4
   radius: 6
-  color: '#181825'
+
+  property var theme: DefaultTheme {}
+
+  color: theme.bgHover
 
   RowLayout {
     id: trayIcons

@@ -3,6 +3,8 @@ import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 
+import ".."
+
 RowLayout {
   spacing: 6
 
@@ -11,6 +13,9 @@ RowLayout {
 
     Rectangle {
       id: wsButton
+
+      property var theme: DefaultTheme {}
+      
       required property var modelData
       property bool urgentBlink: false
 
@@ -21,8 +26,8 @@ RowLayout {
       implicitHeight: 22
       radius: 6
 
-      color: modelData.focused ? '#11111b' 
-           : modelData.urgent && urgentBlink ? '#f38ba8' : '#181825'
+      color: modelData.focused ? theme.bgOverlay 
+           : modelData.urgent && urgentBlink ? theme.accentRed : theme.bgHover
 
       Behavior on implicitWidth {
         PropertyAnimation { duration: 150 }
@@ -48,7 +53,7 @@ RowLayout {
         id: label
         anchors.centerIn: parent
         text: wsButton.modelData.id
-        color: wsButton.modelData.focused ? '#89b4fa' :  '#cdd6f4'
+        color: wsButton.modelData.focused ? theme.accentPrimary :  theme.textPrimary
 
         font {
           family: "SF Mono"
