@@ -7,13 +7,18 @@ import QtQuick.Layouts
 import ".."
 
 RowLayout {
-  property string activeWindow: "Window"
+  property string activeWindow: "Desktop"
   property var theme: DefaultTheme {}
 
   Process {
     id: windowProc
 
-    command: ["sh", "-c", "hyprctl activewindow -j | jq -r '.title // empty'"]
+    command: [
+      "sh", 
+      "-c", 
+      "title=$(hyprctl activewindow -j | jq -r '.title // empty'); echo \"${title:-Desktop}\""
+    ]
+    
     stdout: SplitParser {
       onRead: data => {
       if (data && data.trim()) {
