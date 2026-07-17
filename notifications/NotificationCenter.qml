@@ -56,7 +56,41 @@ PanelWindow {
 
           MouseArea {
             anchors.fill: parent
-            onClicked: history.clear()
+            cursorShape: Qt.PointingHandCursor
+            onClicked: {
+              for (let i = 0; i < history.count; i++) {
+                let item = history.get(i)
+                if (item.rawNotif) {
+                  item.rawNotif.dismiss()
+                }
+              }
+
+              history.clear()
+            }
+          }
+        }
+      }
+
+      RowLayout {
+        Layout.fillWidth: true
+        Text {
+          text: "Do Not Disturb"
+          Layout.fillWidth: true
+          color: root.dndEnabled ? root.theme.accentRed : root.theme.textMuted
+          
+          font { family: "JetBrainsMono Nerd Font Propo"; pixelSize: 16; bold: true }
+        }
+
+        Text {
+          text: root.dndEnabled ? "ON" : "OFF"
+          color: root.dndEnabled ? root.theme.accentRed : root.theme.textMuted
+          
+          font { family: "JetBrainsMono Nerd Font Propo"; pixelSize: 16; bold: true }
+
+          MouseArea {
+            anchors.fill: parent
+            cursorShape: Qt.PointingHandCursor
+            onClicked: root.dndEnabled = !root.dndEnabled
           }
         }
       }
@@ -81,6 +115,32 @@ PanelWindow {
           border.color: model.urgency === NotificationUrgency.Critical 
             ? root.theme.accentRed : root.theme.textMuted
           border.width: 1
+
+          MouseArea {
+            anchors.fill: parent
+            cursorShape: Qt.PointingHandCursor
+            
+            onClicked: {
+              let actionInvoked = false
+              
+              // Ensure the raw object and actions still exist
+              if (model.rawNotif && model.rawNotif.actions) {
+                for (let i = 0; i < model.rawNotif.actions.length; i++) {
+                  if (model.rawNotif.actions[i].identifier === "default") {
+                    model.rawNotif.actions[i].invoke()
+                    actionInvoked = true
+                    break
+                  }
+                }
+              }
+              
+              // Remove the notification from the center after opening it
+              if (actionInvoked) {
+                history.remove(index)
+                root.centerOpen = false // Close the panel
+              }
+            }
+          }
 
           ColumnLayout {
             id: cardLayout
@@ -127,7 +187,13 @@ PanelWindow {
                 MouseArea {
                   anchors.fill: parent
                   cursorShape: Qt.PointingHandCursor
-                  onClicked: history.remove(index)
+                  onClicked: {
+                    if (model.rawNotif) {
+                      model.rawNotif.dismiss()
+                    }
+
+                    history.remove(index)
+                  }
                 }
               }
             }

@@ -14,6 +14,8 @@ PanelWindow {
   implicitHeight: Math.max(1, column.implicitHeight)
   color: "transparent"
 
+  visible: !root.dndEnabled
+
   readonly property real timeout: 5000
 
   ColumnLayout {
@@ -30,7 +32,12 @@ PanelWindow {
         Timer {
           running: card.modelData.urgency !== NotificationUrgency.Critical
           interval: timeout
-          onTriggered: card.modelData.dismiss()
+          // onTriggered: card.modelData.dismiss()
+          // instead of dismissing, which removes the data, we use this to hide it
+          onTriggered: {
+            card.visible = false;
+            card.Layout.preferredHeight = 0
+          }
         }
 
         Layout.fillWidth: true
@@ -100,7 +107,35 @@ PanelWindow {
 
         MouseArea {
           anchors.fill: parent
-          onClicked: card.modelData.dismiss()
+          cursorShape: Qt.PointingHandCursor
+          acceptedButtons: Qt.LeftButton | Qt.RightButton
+          onClicked: (mouse) => {
+            if (mouse.button === Qt.RightButton) {
+              card.visible = false
+              card.Layout.preferredHeight = 0
+              return
+            }
+
+            let actionInvoked = false
+            
+            // Loop through the actions to find the default click behavior
+            for (let i = 0; i < card.modelData.actions.length; i++) {
+              if (card.modelData.actions[i].identifier === "default") {
+                card.modelData.actions[i].invoke()
+                actionInvoked = true
+                break
+              }
+            }
+            
+            // If it's a left click and there's no action, dismiss it
+            if (!actionInvoked) {
+              card.modelData.dismiss()
+            } else {
+              // Action was successful, hide the popup
+              card.visible = false
+              card.Layout.preferredHeight = 0
+            }
+          }
         }
       }
     }

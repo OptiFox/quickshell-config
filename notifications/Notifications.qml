@@ -11,6 +11,7 @@ Scope {
   property var theme: DefaultTheme {}
 
   property bool centerOpen: false
+  property bool dndEnabled: false
 
   ListModel {
     id: history
@@ -29,7 +30,8 @@ Scope {
         appName: n.appName,
         urgency: n.urgency,
         imgSource: n.image || n.appIcon || "",
-        time: Qt.formatDateTime(new Date(), "HH:mm")
+        time: Qt.formatDateTime(new Date(), "HH:mm"),
+        rawNotif: n
       })
       n.tracked = true
     }
