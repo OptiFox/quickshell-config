@@ -7,7 +7,9 @@
 import Quickshell
 
 import "bar"
+import "notifications"
 
 Scope {
   Bar{}
+  Notifications{}
 }
