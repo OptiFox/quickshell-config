@@ -99,7 +99,7 @@ PanelWindow {
         id: notificationList
         Layout.fillWidth: true
         Layout.preferredHeight: contentHeight
-        Layout.maximumHeight: 400
+        Layout.maximumHeight: 600
         clip: true
         spacing: 12
 
@@ -115,6 +115,8 @@ PanelWindow {
           border.color: model.urgency === NotificationUrgency.Critical 
             ? root.theme.accentRed : root.theme.textMuted
           border.width: 1
+
+          // Add Timer to automatically clear notif after some time
 
           MouseArea {
             anchors.fill: parent

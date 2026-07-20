@@ -10,6 +10,7 @@ Currently WIP, only contains basic features like bar and notifications
 ## Todo
 
 - [ ] Notification cards stacking for same app
+- [ ] Add timer so that notifications inside the Notification Center clears after some time
 - [ ] Calendar widget inside Notification Center
 - [ ] Control Panel
 - [ ] App Launcher
