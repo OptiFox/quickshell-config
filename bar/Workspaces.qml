@@ -28,6 +28,8 @@ RowLayout {
 
       color: modelData.focused ? theme.bgOverlay 
            : modelData.urgent && urgentBlink ? theme.accentRed : theme.bgHover
+          //  color: modelData.focused ? theme.accentPrimary 
+          //  : modelData.urgent && urgentBlink ? theme.accentRed : theme.bgHover
 
       Behavior on implicitWidth {
         PropertyAnimation { duration: 150 }
@@ -54,6 +56,7 @@ RowLayout {
         anchors.centerIn: parent
         text: wsButton.modelData.id
         color: wsButton.modelData.focused ? theme.accentPrimary :  theme.textPrimary
+        // color: wsButton.modelData.focused ? theme.bgOverlay :  theme.textPrimary
 
         font {
           family: "SF Mono"

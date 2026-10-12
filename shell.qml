@@ -8,8 +8,10 @@ import Quickshell
 
 import "bar"
 import "notifications"
+import "controlpanel"
 
 Scope {
   Bar{}
   Notifications{}
+  ControlPanel{}
 }

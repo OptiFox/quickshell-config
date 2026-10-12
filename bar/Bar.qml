@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 
 import ".."
+import "../controlpanel"
 
 Scope {
   Variants {
@@ -32,7 +33,7 @@ Scope {
       RowLayout {
         anchors.fill: parent
         anchors.leftMargin: 14
-        anchors.rightMargin: 14  
+        anchors.rightMargin: 14
         spacing: 8
 
         WindowTitle {}
@@ -45,12 +46,22 @@ Scope {
 
         Separator {}
 
-        RowLayout {
-          spacing: 8
+        MouseArea {
+          id: statusCluster
+          Layout.preferredWidth: clusterRow.implicitWidth
+          Layout.preferredHeight: clusterRow.implicitHeight
+          cursorShape: Qt.PointingHandCursor
+          onClicked: ControlPanelState.toggle()
 
-          Battery {}
-          Volume {}
-          Network {}
+          RowLayout {
+            id: clusterRow
+            anchors.fill: parent
+            spacing: 8
+
+            Battery {}
+            Volume {}
+            Network {}
+          }
         }
 
         Separator {}
